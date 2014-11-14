@@ -11,8 +11,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Add your content in the service of Yandex Webmaster Original texts, in prema publications or save
 
 == Description ==
-Плагин Original texts Yandex WebMaster позволяет автоматизировать взаимодействие с сервисом «Оригинальные тексты». Сервис уведомлений об оригинальном текстовом контенте предоставляет вебмастеру возможность заранее сообщить поисковой системе о скором появлении оригинального текста на его сайте.
-Plug Original texts Yandex WebMaster allows you to automate the interaction with the service of "Original texts". The notification service of the original text content gives the webmaster the ability to inform the search engine about the imminent appearance of the original text on his website.
+Плагин Original texts Yandex WebMaster позволяет автоматизировать взаимодействие с сервисом «Оригинальные тексты». 
+Сервис уведомлений об оригинальном текстовом контенте предоставляет вебмастеру возможность заранее сообщить поисковой системе о скором появлении оригинального текста на его сайте.
+
+Plug Original texts Yandex WebMaster allows you to automate the interaction with the service of "Original texts". 
+The notification service of the original text content gives the webmaster the ability to inform the search engine about the imminent appearance of the original text on his website.
+
+[youtube https://www.youtube.com/watch?v=JEBkCIQkmyc] 
 
 == Installation ==
 
@@ -23,6 +28,9 @@ While doing the installation procedure, it is recommended to go through all the 
 1. Upload folder `original-texts-yandex-webmaster` to the `/wp-content/plugins` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Follow the steps to configure the plug-in menu "Settings" - "OriginalTextYa"
+4. Configure your plug-in using instructional videos or built-in help and descriptions
+
+[youtube https://www.youtube.com/watch?v=JEBkCIQkmyc] 
 
 == Screenshots ==
 1. Общие настройки плагина. General plugin settings
