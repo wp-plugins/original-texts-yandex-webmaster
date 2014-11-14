@@ -1,0 +1,37 @@
+=== original-texts-yandex-webmaster ===
+Contributors: northmule
+Donate link: http://www.zixn.ru/
+Tags: Post, posts, webmaster, widget, yandex
+Requires at least: 3.3
+Tested up to: 4.0
+Stable tag: 4.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Add your content in the service of Yandex Webmaster Original texts, in prema publications or save
+
+== Description ==
+Плагин Original texts Yandex WebMaster позволяет автоматизировать взаимодействие с сервисом «Оригинальные тексты». Сервис уведомлений об оригинальном текстовом контенте предоставляет вебмастеру возможность заранее сообщить поисковой системе о скором появлении оригинального текста на его сайте.
+Plug Original texts Yandex WebMaster allows you to automate the interaction with the service of "Original texts". The notification service of the original text content gives the webmaster the ability to inform the search engine about the imminent appearance of the original text on his website.
+
+== Installation ==
+
+While doing the installation procedure, it is recommended to go through all the steps first before viewing the output. If you don't, you'll get nasty error messages.
+
+= For those with Sidebar Widget compatible themes =
+
+1. Upload folder `originaltexts-yandex` to the `/wp-content/plugins` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Follow the steps to configure the plug-in menu "Settings" - "OriginalTextYa"
+
+== Screenshots ==
+1. Общие настройки плагина. General plugin settings
+2. Раздел проекты. Section projects
+3. Журнал работы плагина. The log plugin
+4. Раздел справка. Help
+5. Еще один пример из настроек плагина. Another example from the plugin settings
+6. Вид при публикации записи. Look at the publication post
+
+== Changelog ==
+= 1.0 =
+* relise
