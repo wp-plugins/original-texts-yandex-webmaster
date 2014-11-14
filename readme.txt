@@ -20,7 +20,7 @@ While doing the installation procedure, it is recommended to go through all the 
 
 = For those with Sidebar Widget compatible themes =
 
-1. Upload folder `originaltexts-yandex` to the `/wp-content/plugins` directory
+1. Upload folder `original-texts-yandex-webmaster` to the `/wp-content/plugins` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Follow the steps to configure the plug-in menu "Settings" - "OriginalTextYa"
 
