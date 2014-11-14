@@ -1,4 +1,4 @@
-=== original-texts-yandex-webmaster ===
+=== Original texts Yandex WebMaster ===
 Contributors: northmule
 Donate link: http://www.zixn.ru/
 Tags: Post, posts, webmaster, widget, yandex
