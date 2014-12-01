@@ -41,5 +41,7 @@ While doing the installation procedure, it is recommended to go through all the 
 6. Вид при публикации записи. Look at the publication post
 
 == Changelog ==
+= 1.1 =
+* Small cosmetic changes to the interface, add the token to the system
 = 1.0 =
 * relise

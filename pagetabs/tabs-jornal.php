@@ -21,6 +21,11 @@ $jornalarray = get_option('ortext_jornal');
 
 if (isset($_GET['clearjornal'])) {
     update_option('ortext_jornal', array());
+    ?>
+    <script type = "text/javascript">
+        document.location.href = "<?php echo $plugins_url; ?>";
+    </script>
+    <?php
 }
 ?>
 <a class="btn btn-primary" href="<?php echo $plugins_url . '&clearjornal'; ?>">Очистить журнал</a>

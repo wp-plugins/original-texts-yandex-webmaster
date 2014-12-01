@@ -13,6 +13,8 @@
         jQuery("#toltipstep3").tooltip({placement: 'bottom'});
         jQuery("#toltikodtoken").tooltip({placement: 'bottom'});
         jQuery("#toltitimetoken").tooltip({placement: 'bottom'});
+        jQuery("#toltipstep_tokenremove").tooltip({placement: 'bottom'});
+
 
     });
 
@@ -134,6 +136,8 @@ $ortext_token_key = get_option('ortext_token_key'); // Токен яндекса
 $ortext_token_time = get_option('ortext_token_time'); //Время жизни токена
 $temp_off_token = time() + ($ortext_token_time);
 $dateoff_token = date('d-m-Y', $temp_off_token); // Дата окончания токена в человеческом виде
+$tek_data = date('d-m-Y'); //Тукущая дата, нужна для проверки
+//$adminka_pugin = admin_url() . OrTextBase::URL_PLUGIN_CONTROL; //Админ панель плагина
 
 $ortext_loadsite = get_option('ortext_loadsite'); //Текущий загруженный проект
 $ortext_yasent = get_option('ortext_yasent'); // настройка для публикаций по умолчанию
@@ -144,7 +148,7 @@ $plugins_url = admin_url() . 'options-general.php?page=' . OrTextBase::URL_ADMIN
 $dir_plugin_abdolut = plugin_dir_path(__FILE__);
 ?>
 
-<h2><?php _e('Настройка вашего сайта на работу с сервисом '.OrTextBase::NAME_SERVIC_ORIGINAL_TEXT) ?></h2>
+<h2><?php _e('Настройка вашего сайта на работу с сервисом ' . OrTextBase::NAME_SERVIC_ORIGINAL_TEXT) ?></h2>
 
 
 <ul class="nav nav-tabs">
@@ -213,7 +217,7 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                 <?php //if (!empty($ortext_passwd)) { ?>
                 <p id="toltitistep2" data-toggle="tooltip" title="Запрошенный вами код подтверждения после нажатия кнопки, будет действовать 10 минут, в течение этого времени нужно дойти до шага №3"> <a href="#modalstep2" class="btn btn-small btn-warning btn-block" data-toggle="modal">Шаг № 2 - Получите Код подтверждения (меняется каждые 10 мин)</a></p><br>
                 <p></p>
-                <?php //} ?>
+                <?php //}  ?>
 
                 <p class="submit">
                     <input type="submit" class="btn btn-large btn-primary" value="<?php _e('Save Changes') ?>" />
@@ -225,8 +229,12 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
         </form>
 
         <?php if (!empty($ortext_token)) { ?>
-            <p class="step3clic"><a id="toltipstep3" data-toggle="tooltip" title="После нажатия на кнопку в систему запишется ТОКЕН, после чего вы увидите список ваших сайтов в Яндекс.ВебМастер" href="<?php echo $plugins_url . "&token"; ?>" class="btn btn-small btn-primary btn-block">Шаг № 3 - Получить токен</a></p><br>
-
+            <?php if ($dateoff_token === $tek_data) { ?>
+                <p class="step3clic"><a id="toltipstep3" data-toggle="tooltip" title="После нажатия на кнопку в систему запишется ТОКЕН, после чего вы увидите список ваших сайтов в Яндекс.ВебМастер" href="<?php echo $plugins_url . "&token"; ?>" class="btn btn-small btn-primary btn-block">Шаг № 3 - Получить токен</a></p><br>
+            <?php } ?>
+            <?php if (!empty($ortext_token_key)) { ?>
+                <a id="toltipstep_tokenremove" data-toggle="tooltip" title="Для удаления токена из системы, а так же обнуления кода подтверждения - нажмите на кнопку" href="<?php echo $plugins_url . "&removetoken"; ?>" class="btn btn-small btn-danger btn-block">Удалить токен</a>
+            <?php } ?>
             <p id="toltikodtoken" data-toggle="tooltip" title="Ваш токен, при помощи него плагин будет взаимодействовать с <?php echo OrTextBase::NAME_SERVIC_ORIGINAL_TEXT; ?>" class="btn btn-mini btn-success">Код токена: <?php echo $ortext_token_key; ?></p></br>
             <p></p>
             <p id="toltitimetoken" data-toggle="tooltip" title="До этого времени токен будет работать, по окончанию срока, нужно повторить Шаг2 и Шаг3" class="btn btn-mini btn-success">Токен будет работать до (день-месяц-год): <?php echo $dateoff_token; ?></p></br>
@@ -244,6 +252,22 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
             $token = $ortextfun->zaprosToken();
             update_option('ortext_token_key', $token->access_token);
             update_option('ortext_token_time', $token->expires_in);
+            ?>
+            <script type = "text/javascript">
+                document.location.href = "<?php echo $plugins_url; ?>";
+            </script>
+            <?php
+        }
+//Удаление токена
+        if (isset($_GET['removetoken'])) {
+            update_option('ortext_token_key', '');
+            update_option('ortext_token_time', '');
+            update_option('ortext_token', '');
+            ?>
+            <script type = "text/javascript">
+                document.location.href = "<?php echo $plugins_url; ?>";
+            </script>
+            <?php
         }
 
 
@@ -265,14 +289,16 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
 
 
                             <?php
-                            foreach ($optionsprojectout as $optionsprojectout1) {
+                            if (!empty($optionsprojectout)) {
+                                foreach ($optionsprojectout as $optionsprojectout1) {
 
-                                $name = $optionsprojectout1['name']; //сайт
-                                $siteid = $optionsprojectout1['siteid']; // его ID
-                                $status = $optionsprojectout1['status']; // Статус проверки сайта
-                                ?>
-                                <p><input name="ortext_loadsite" type="radio" value="<?php echo $siteid; ?>" <?php $ortextfun->chekedOptions($ortext_loadsite, $siteid); ?>><?php echo "$name статус $status id $siteid"; ?></p><br>
-                                <?php
+                                    $name = $optionsprojectout1['name']; //сайт
+                                    $siteid = $optionsprojectout1['siteid']; // его ID
+                                    $status = $optionsprojectout1['status']; // Статус проверки сайта
+                                    ?>
+                                    <p><input name="ortext_loadsite" type="radio" value="<?php echo $siteid; ?>" <?php $ortextfun->chekedOptions($ortext_loadsite, $siteid); ?>><?php echo "$name статус $status id $siteid"; ?></p><br>
+                                    <?php
+                                }
                             }
                             ?>
 
@@ -331,6 +357,3 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
 </div> 
 <!--Конец блока влкадок-->
 <?php
-//$nn=new OrtextAjax();
-//$nn->ajaxGetSite();
-?>

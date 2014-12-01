@@ -12,6 +12,7 @@ class OrTextBase {
     const NAME_TITLE_PLUGIN_PAGE = 'Оригинальные тексты Яндекс'; // Название титульной страницы плагина
     const NAME_MENU_OPTIONS_PAGE = 'OriginalTextYa'; // Название пунтка меню
     const NAME_SERVIC_ORIGINAL_TEXT='Оригинальные тексты Yandex Webmaster';
+    const URL_PLUGIN_CONTROL='options-general.php?page=ortext-yandex-page';//Адрес админки плагина полный
 
     /**
      * Констурктора класса

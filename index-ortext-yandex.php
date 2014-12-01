@@ -3,7 +3,7 @@
   Plugin Name: Original texts Yandex WebMaster
   Plugin URI: http://www.zixn.ru/plagin-originalnye-teksty-yandex.html
   Description: Позволяет добавлять ваши записи в "Оригинальные тексты Yandex Webmaster"
-  Version: 1.0
+  Version: 1.1
   Author: Djon
   Author URI: http://zixn.ru
  */
