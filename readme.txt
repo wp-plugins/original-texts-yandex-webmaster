@@ -19,6 +19,8 @@ The notification service of the original text content gives the webmaster the ab
 
 [youtube https://www.youtube.com/watch?v=JEBkCIQkmyc] 
 
+Support and suggestions, [Support](http://www.zixn.ru/plagin-originalnye-teksty-yandex.html)
+
 == Installation ==
 
 While doing the installation procedure, it is recommended to go through all the steps first before viewing the output. If you don't, you'll get nasty error messages.
