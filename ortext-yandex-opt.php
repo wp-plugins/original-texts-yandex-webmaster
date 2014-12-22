@@ -24,7 +24,10 @@
 
 </script>	
 
-<?php $ortextfun = new OrTextFunc; ?>
+<?php
+$ortextfun = new OrTextFunc;
+$ortextfun->IfElseUpdate(); //опции
+?>
 
 <!-- Modal Шаг 1 -->
 <div class="modal fade" id="modalstep1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -142,6 +145,8 @@ $tek_data = date('d-m-Y'); //Тукущая дата, нужна для пров
 $ortext_loadsite = get_option('ortext_loadsite'); //Текущий загруженный проект
 $ortext_yasent = get_option('ortext_yasent'); // настройка для публикаций по умолчанию
 
+$ortext_posttype = get_option('ortext_posttype'); //Типы постов
+
 
 
 $plugins_url = admin_url() . 'options-general.php?page=' . OrTextBase::URL_ADMIN_MENU_PLUGIN; //URL страницы плагина
@@ -214,10 +219,10 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                 </p>
             <?php } else { ?>
 
-                <?php //if (!empty($ortext_passwd)) { ?>
+                <?php //if (!empty($ortext_passwd)) {  ?>
                 <p id="toltitistep2" data-toggle="tooltip" title="Запрошенный вами код подтверждения после нажатия кнопки, будет действовать 10 минут, в течение этого времени нужно дойти до шага №3"> <a href="#modalstep2" class="btn btn-small btn-warning btn-block" data-toggle="modal">Шаг № 2 - Получите Код подтверждения (меняется каждые 10 мин)</a></p><br>
                 <p></p>
-                <?php //}  ?>
+                <?php //}   ?>
 
                 <p class="submit">
                     <input type="submit" class="btn btn-large btn-primary" value="<?php _e('Save Changes') ?>" />
@@ -322,11 +327,33 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
 
                     </tr>
 
+                    <tr valign="top">
+                        <th scope="row">Типы записей</th>
+                        <td>
+                            <?php
+                            $array_posts = get_post_types('', 'names', 'and');
+                            foreach ($array_posts as $v) {
+                                ?>
+
+                                <p><input name="ortext_posttype[<?php echo $v; ?>]" type="checkbox" value="<?php echo $v; ?>" <?php
+                        if (isset($ortext_posttype[$v])) {
+                            checked($ortext_posttype[$v], $v, 1);
+                        }
+                                ?>><?php echo $v; ?></p>
+                                    <?php
+                                }
+                                ?>
+                            <span class="description">Выберите типы «записей» при добавление которых будет работать функция отправки в сервис «Оригинальные Тексты Яндекс». По умолчанию всегда активен тип записей «Post». Если вам необходимо что бы была возможность отправлять данные из «Произвольных типов записей» поставте напротив «галочку». Если вы не знаете что такое «Произвольный тип записей» - ни чего не трогайте.</span>
+                        </td>
+
+
+                    </tr>
+
 
                 </table>
 
                 <input type="hidden" name="action" value="update" />
-                <input type="hidden" name="page_options" value="ortext_loadsite, ortext_yasent" />
+                <input type="hidden" name="page_options" value="ortext_loadsite, ortext_yasent, ortext_posttype" />
 
                 <p class="submit">
                     <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
@@ -338,22 +365,23 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
 
             Пока у вас нет доступных проектов. Пройдите все шаги до получения Токена от Яндекс
 
-        <?php } ?>
+<?php } ?>
 
     </div>
     <!--Конец Вкладка проекты-->
 
     <div class="tab-pane" id="jornal">
-        <?php require_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-jornal.php'); ?>
+<?php require_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-jornal.php'); ?>
     </div>
     <div class="tab-pane" id="help">
-        <?php include_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-help.php'); ?>
+<?php include_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-help.php'); ?>
     </div>
     <div class="tab-pane" id="about">
-        <?php include_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-about.php'); ?>
+<?php include_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/pagetabs/tabs-about.php'); ?>
     </div>
 
 
 </div> 
 <!--Конец блока влкадок-->
 <?php
+

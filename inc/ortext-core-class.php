@@ -11,8 +11,8 @@ class OrTextBase {
     const OPTIONS_NAME_PAGE = 'ortext-yandex-opt.php'; //страница опций плагина
     const NAME_TITLE_PLUGIN_PAGE = 'Оригинальные тексты Яндекс'; // Название титульной страницы плагина
     const NAME_MENU_OPTIONS_PAGE = 'OriginalTextYa'; // Название пунтка меню
-    const NAME_SERVIC_ORIGINAL_TEXT='Оригинальные тексты Yandex Webmaster';
-    const URL_PLUGIN_CONTROL='options-general.php?page=ortext-yandex-page';//Адрес админки плагина полный
+    const NAME_SERVIC_ORIGINAL_TEXT = 'Оригинальные тексты Yandex Webmaster';
+    const URL_PLUGIN_CONTROL = 'options-general.php?page=ortext-yandex-page'; //Адрес админки плагина полный
 
     /**
      * Констурктора класса
@@ -34,6 +34,7 @@ class OrTextBase {
         delete_option('ortext_loadsite');
         delete_option('ortext_yasent');
         delete_option('ortext_jornal');
+        delete_option('ortext_posttype'); //Типы выбранных записей
     }
 
     /**
@@ -58,6 +59,7 @@ class OrTextBase {
         add_option('ortext_loadsite', $value = '', $deprecated = '', $autoload = 'yes'); //Текущей загруженный проект
         add_option('ortext_yasent', $value = '', $deprecated = '', $autoload = 'yes'); //Опция для установки галочки в записях о отправки в яндекс
         add_option('ortext_jornal', array()); //Массив с журналом
+        add_option('ortext_posttype', array('post' => 'post')); //Типы выбранных записей
     }
 
     /**
@@ -78,7 +80,6 @@ class OrTextBase {
         wp_enqueue_style('ortext_bootstrapcss1');
         wp_register_style('ortext_adminpagecss', plugins_url() . '/' . self::PATCH_PLUGIN . '/' . 'css/adminpag.css');
         wp_enqueue_style('ortext_adminpagecss');
-
     }
 
     /**
@@ -92,8 +93,11 @@ class OrTextBase {
      * Метабокс в записи
      */
     public function settingMetabos() {
-        add_meta_box('ortext-metabox', OrTextBase::NAME_SERVIC_ORIGINAL_TEXT, array($this, 'metabosHtml'), 'post', 'side', 'high');
-
+        $array_posts = get_option('ortext_posttype'); //Типы постов
+        foreach ($array_posts as $k => $v) {
+            add_meta_box('ortext-metabox', OrTextBase::NAME_SERVIC_ORIGINAL_TEXT, array($this, 'metabosHtml'), "$v", 'side', 'high');
+        }
+// add_meta_box('ortext-metabox', OrTextBase::NAME_SERVIC_ORIGINAL_TEXT, array($this, 'metabosHtml'), 'post', 'side', 'high');
     }
 
     /**
@@ -101,9 +105,9 @@ class OrTextBase {
      */
     public function metabosHtml($post) {
         $ortext_yasent = get_option('ortext_yasent'); // настройка для публикаций по умолчанию
-        // Используем nonce для верификации
+// Используем nonce для верификации
         wp_nonce_field(plugin_basename(__FILE__), 'ortext_noncename');
-        // Поля формы для введения данных
+// Поля формы для введения данных
         if (empty($ortext_yasent)) {
             if (get_post_meta($post->ID, '_ortext_meta_value_key', true) == 'on') {
                 $cheked = 'checked';
@@ -115,7 +119,7 @@ class OrTextBase {
         }
 
         echo '<input type="checkbox" name="ortext_new_field" ' . $cheked . '/>';
-        echo '<span class="description">Добавлять текст в сервис '.OrTextBase::NAME_SERVIC_ORIGINAL_TEXT.' при сохранение?</span>';
+        echo '<span class="description">Добавлять текст в сервис ' . OrTextBase::NAME_SERVIC_ORIGINAL_TEXT . ' при сохранение?</span>';
     }
 
     /**
@@ -123,28 +127,28 @@ class OrTextBase {
      */
     public function metaboxSavePost($post_id) {
 
-        // проверяем nonce нашей страницы, потому что save_post может быть вызван с другого места.
+// проверяем nonce нашей страницы, потому что save_post может быть вызван с другого места.
         if (!wp_verify_nonce($_POST['ortext_noncename'], plugin_basename(__FILE__)))
             return $post_id;
 
-        // проверяем, если это автосохранение ничего не делаем с данными нашей формы.
+// проверяем, если это автосохранение ничего не делаем с данными нашей формы.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return $post_id;
 
-        // проверяем разрешено ли пользователю указывать эти данные
+// проверяем разрешено ли пользователю указывать эти данные
         if (!current_user_can('edit_post', $post_id)) {
             return $post_id;
         }
 
 
-        // Убедимся что поле установлено.
+// Убедимся что поле установлено.
 //        if (!isset($_POST['ortext_new_field']))
 //            return;
 
 
         $data = $_POST['ortext_new_field'];
-        //$data = 'off';
-        //Обновление данных в базе даннхы
+//$data = 'off';
+//Обновление данных в базе даннхы
         update_post_meta($post_id, '_ortext_meta_value_key', $data);
     }
 
@@ -153,37 +157,38 @@ class OrTextBase {
      */
     public function metaboxSentYandex($post_id) {
 
-        //$postId = intval($_REQUEST['postId']);
+//$postId = intval($_REQUEST['postId']);
         $postData = get_post($post_id);
-        $title=$postData->post_title;
+        $title = $postData->post_title;
         $text = $postData->post_content;
+        $post_type = $postData->post_type;
 
         $ortextfun = new OrTextFunc;
 
         if (!wp_verify_nonce($_POST['ortext_noncename'], plugin_basename(__FILE__)))
             return $post_id;
 
-        // проверяем, если это автосохранение ничего не делаем с данными нашей формы.
+// проверяем, если это автосохранение ничего не делаем с данными нашей формы.
 
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
             return $post_id;
 
-        // проверяем разрешено ли пользователю указывать эти данные
+// проверяем разрешено ли пользователю указывать эти данные
         if (!current_user_can('edit_post', $post_id)) {
             return $post_id;
         }
 
 
-        // Убедимся что поле установлено.
-        //if (!isset($_POST['ortext_new_field']))
-        //    return;
+// Убедимся что поле установлено.
+//if (!isset($_POST['ortext_new_field']))
+//    return;
         $chek = get_post_meta($post_id, '_ortext_meta_value_key', true);
-        //wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $aa);
+//wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $aa);
         if ($chek == 'on') {
-            //$cheked = 'checked';
-            //wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $chek);
-           $status_sent=$ortextfun->sendTextOriginal2($text); //Отправка текста
-           $ortextfun->logJornal($post_id, $title, $status_sent); //Логируем результаты
+//$cheked = 'checked';
+//wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $chek);
+            $status_sent = $ortextfun->sendTextOriginal2($text); //Отправка текста
+            $ortextfun->logJornal($post_id, $title, $status_sent, $post_type); //Логируем результаты
         } else {
             return;
         }

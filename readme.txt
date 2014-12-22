@@ -3,7 +3,7 @@ Contributors: northmule
 Donate link: http://www.zixn.ru/
 Tags: Post, posts, webmaster, widget, yandex
 Requires at least: 3.3
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,6 +43,8 @@ While doing the installation procedure, it is recommended to go through all the 
 6. Вид при публикации записи. Look at the publication post
 
 == Changelog ==
+= 1.2 =
+* Added the ability to choose the type of posts in the creation of which will be available to service the Original Texts Yandex
 = 1.1 =
 * Small cosmetic changes to the interface, add the token to the system
 = 1.0 =

@@ -16,11 +16,21 @@ class OrTextFunc {
     const YANDEX_MAX_SIZE_POST = '32000'; // Максимальное количество символов в посте
 
     /**
+     * Условия
+     */
+
+    public function IfElseUpdate() {
+        $ortext_posttype = get_option('ortext_posttype'); //Типы постов
+        if (empty($ortext_posttype)) { //установка опции по умолчанию
+            update_option('ortext_posttype', array('post' => 'post'));
+        }
+    }
+
+    /**
      * Получение от Яндекса Токена
      * 
      * @return string
      */
-
     public function getYandexToken() {
         $ortext_id = get_option('ortext_id');
         $url = self::YANDEX_TOKEN_URL . $ortext_id;
@@ -39,7 +49,7 @@ class OrTextFunc {
 
         $headers = array(
             'GET /api/v2/hosts HTTP/1.1',
-           'Host: webmaster.yandex.ru',
+            'Host: webmaster.yandex.ru',
             'Authorization: OAuth ' . $ortext_token_key
         );
 
@@ -159,7 +169,7 @@ class OrTextFunc {
 //echo "<pre>";
 //print_r($response);
 //echo "</pre>";
-        
+
         $result = array();
         if ($response['http_code'] == 500) {
             $result = 500;
@@ -185,11 +195,10 @@ class OrTextFunc {
             $result = 201;
             return $result;
         }
-        
+
         return 777;
     }
 
-   
     /**
      * Проверка Чекеда
      * @param string $options Опция из базы данных
@@ -209,12 +218,12 @@ class OrTextFunc {
     /**
      * Функция логирования, для вкладки журнал
      */
-    public function logJornal($idpost, $title, $status) {
+    public function logJornal($idpost, $title, $status, $post_type) {
 
         $ortext_jornal_old = get_option('ortext_jornal');
         //$time=date('d-m-Y', time()); // Дата запуска функции
         $time = current_time('mysql');
-        $ortext_jornal_temp = array('time' => $time, 'idpost' => $idpost, 'title' => $title, 'status' => $status);
+        $ortext_jornal_temp = array('time' => $time, 'idpost' => $idpost, 'title' => $title, 'status' => $status, 'post_type' => $post_type);
         $ortext_jornal_new = array();
         $ortext_jornal_new = $ortext_jornal_old;
         array_push($ortext_jornal_new, $ortext_jornal_temp);

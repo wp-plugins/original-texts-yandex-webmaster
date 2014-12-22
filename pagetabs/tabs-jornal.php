@@ -37,6 +37,7 @@ if (isset($_GET['clearjornal'])) {
             <th>Дата и время добавления</th> 
             <th>Номер записи (id поста по Wordpress)</th>
             <th>Заголовок записи</th>
+            <th>Тип записи</th>
             <th>Статус добавления</th>
         </tr>
     </thead>
@@ -57,6 +58,7 @@ if (isset($_GET['clearjornal'])) {
                 <th><?php echo $jornalprint['time']; ?></th>
                 <th><?php echo $jornalprint['idpost']; ?></th>
                 <th><?php echo $jornalprint['title']; ?></th>
+                <th><?php echo $jornalprint['post_type']; ?></th>
                 <th><?php echo $jornalprint['status']; ?></th>
             </tr>
         <?php } ?>
