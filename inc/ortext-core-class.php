@@ -97,7 +97,6 @@ class OrTextBase {
         foreach ($array_posts as $k => $v) {
             add_meta_box('ortext-metabox', OrTextBase::NAME_SERVIC_ORIGINAL_TEXT, array($this, 'metabosHtml'), "$v", 'side', 'high');
         }
-// add_meta_box('ortext-metabox', OrTextBase::NAME_SERVIC_ORIGINAL_TEXT, array($this, 'metabosHtml'), 'post', 'side', 'high');
     }
 
     /**
@@ -147,7 +146,6 @@ class OrTextBase {
 
 
         $data = $_POST['ortext_new_field'];
-//$data = 'off';
 //Обновление данных в базе даннхы
         update_post_meta($post_id, '_ortext_meta_value_key', $data);
     }
@@ -180,13 +178,9 @@ class OrTextBase {
 
 
 // Убедимся что поле установлено.
-//if (!isset($_POST['ortext_new_field']))
-//    return;
         $chek = get_post_meta($post_id, '_ortext_meta_value_key', true);
-//wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $aa);
+
         if ($chek == 'on') {
-//$cheked = 'checked';
-//wp_mail('admin@b2motor.ru', "Ппалигн", $text . " ----  " . $chek);
             $status_sent = $ortextfun->sendTextOriginal2($text); //Отправка текста
             $ortextfun->logJornal($post_id, $title, $status_sent, $post_type); //Логируем результаты
         } else {
