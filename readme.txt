@@ -44,7 +44,7 @@ While doing the installation procedure, it is recommended to go through all the 
 
 == Changelog ==
 = 1.3 =
-* Изменён способ отправки данных в api Яндекс (1 фукнция) Изменён журнал плагина (добавлена таблица ошибок)
+* Изменён способ отправки данных в api Яндекс (1 функция) Изменён журнал плагина
 = 1.2 =
 * Added the ability to choose the type of posts in the creation of which will be available to service the Original Texts Yandex
 = 1.1 =
