@@ -29,7 +29,46 @@ if (isset($_GET['clearjornal'])) {
 }
 ?>
 <a class="btn btn-primary" href="<?php echo $plugins_url . '&clearjornal'; ?>">Очистить журнал</a>
-<span class="glyphicon glyphicon-exclamation-sign btn btn-info btn-sm" id="toltipstatus" data-toggle="tooltip" title="201 - Текст добавлен. 409 - Текст уже был добавлен ранее. 500 - Ошибка на стороне Яндекс. 777 - Не известная ошибка, обратитесь к разработчику плагина">Типы ошибок</span>
+<p>Информация по ошибкам</p>
+<table class="table table-bordered table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Код ошибки</th> 
+            <th>Расшифровка</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr class="success">
+            <th>201</th>
+            <th>Текст добавлен</th>
+        </tr>
+        <tr class="warning">
+            <th>401</th>
+            <th>Срок действия токена истёк</th>
+        </tr>
+        <tr class="danger">
+            <th>403</th>
+            <th>-Оригинальный текст слишком короткий или длинный.<br> -Превышен суточный лимит на добавление оригинальных текстов.<br>
+                -Неверное значение токена.<br>-Права пользователя на сайт не подтверждены.
+            </th>
+        </tr>
+        <tr class="info">
+            <th>409</th>
+            <th>Оригинальный текст уже добавлен</th>
+        </tr>
+        <tr class="warning">
+            <th>500</th>
+            <th>Внутренняя ошибка сервера</th>
+        </tr>
+        <tr class="danger">
+            <th>777</th>
+            <th>Не определённая ошибка, сообщите разработчику плагина - он подумает над этим :)</th>
+        </tr>
+
+    </tbody>
+</table>
 
 <table class="table table-bordered table-hover table-condensed">
     <thead>
@@ -47,11 +86,15 @@ if (isset($_GET['clearjornal'])) {
             switch (trim($jornalprint['status'])) {
                 case 201: echo 'success';
                     break;
+                case 401: echo 'warning';
+                    break;
                 case 409: echo 'info';
                     break;
                 case 500: echo 'warning';
                     break;
                 case 777: echo 'danger';
+                    break;
+                case 403: echo 'danger';
                     break;
             }
             ?>">

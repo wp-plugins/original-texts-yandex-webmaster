@@ -138,6 +138,7 @@ class OrTextFunc {
 
     /**
      * Отправка Текстов в Сервис Оригинальные тексты
+     * @param string $text2 Текст для загрузки
      */
     public function sendTextOriginal2($text2) {
 
@@ -146,57 +147,29 @@ class OrTextFunc {
         $url = '/api/v2/hosts/' . $ortext_loadsite . '/original-texts/';
         $text = urlencode('<original-text><content>' . strip_tags($text2) . '</content></original-text>');
 
-        $headers = array(
-            'POST ' . $url . ' HTTP/1.1',
-            'Host: webmaster.yandex.ru',
-            'Authorization: OAuth ' . $ortext_token_key,
-            'Content-Length: ' . strlen($text)
+        $headersnew = array(
+            'POST' => $url . ' HTTP/1.1',
+            'Host' => 'webmaster.yandex.ru',
+            'Authorization' => 'OAuth ' . $ortext_token_key,
+            'Content-Length' => strlen($text)
         );
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'https://' . self::YANDEX_WEBMASTER_HOST . $url);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $text);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        //ммм
-        curl_setopt($curl, CURLOPT_CERTINFO, true);
-        curl_setopt($curl, CURLOPT_HEADER, true);
-        $curlinfo = curl_exec($curl);
-        $response = curl_getinfo($curl);
-        curl_close($curl);
-//echo "<pre>";
-//print_r($response);
-//echo "</pre>";
+        $curlinfo = wp_remote_post('https://' . self::YANDEX_WEBMASTER_HOST . $url, array('headers' => $headersnew, 'body' => $text));
+        $response = $curlinfo['response'];
 
-        $result = array();
-        if ($response['http_code'] == 500) {
-            $result = 500;
-            return $result;
-        }
-        if ($response['http_code'] == 409) {
-//            $dom = new DOMDocument();
-//            $yandexError = 'unknown';
-//            if ($dom->loadXML($response['result'])) {
-//                $yandexError = $dom->getElementsByTagName('message')->item(0)->nodeValue;
-//            }
-            $result = 409;
-            return $result;
-        }
-        if ($response['http_code'] == 201) {
-//            $dom = new DOMDocument();
-//            $yandexLink = 'unknown';
-//            $yandexId = 'unknown';
-//            if ($dom->loadXML($response['result'])) {
-//                $yandexId = $dom->getElementsByTagName('id')->item(0)->nodeValue;
-//                $yandexLink = $dom->getElementsByTagName('link')->item(0)->getAttribute('href');
-//            }
-            $result = 201;
-            return $result;
-        }
+        switch ($response['code']) {
+            case 201: return 201;
 
-        return 777;
+            case 403: return 403;
+                
+            case 401: return 401;
+
+            case 409: return 409;
+
+            case 500: return 500;
+
+            default: return 777;
+        }
     }
 
     /**

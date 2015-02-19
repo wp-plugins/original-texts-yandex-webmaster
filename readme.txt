@@ -43,6 +43,8 @@ While doing the installation procedure, it is recommended to go through all the 
 6. Вид при публикации записи. Look at the publication post
 
 == Changelog ==
+= 1.3 =
+* Изменён способ отправки данных в api Яндекс (1 фукнция) Изменён журнал плагина (добавлена таблица ошибок)
 = 1.2 =
 * Added the ability to choose the type of posts in the creation of which will be available to service the Original Texts Yandex
 = 1.1 =
