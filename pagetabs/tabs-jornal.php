@@ -45,6 +45,10 @@ if (isset($_GET['clearjornal'])) {
             <th>Текст добавлен</th>
         </tr>
         <tr class="warning">
+            <th>400</th>
+            <th>Bad request (Не верный запрос)</th>
+        </tr>
+        <tr class="warning">
             <th>401</th>
             <th>Срок действия токена истёк</th>
         </tr>
@@ -85,6 +89,8 @@ if (isset($_GET['clearjornal'])) {
             <tr class="<?php
             switch (trim($jornalprint['status'])) {
                 case 201: echo 'success';
+                    break;
+                case 400: echo 'warning';
                     break;
                 case 401: echo 'warning';
                     break;

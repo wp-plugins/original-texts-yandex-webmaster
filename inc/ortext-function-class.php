@@ -145,7 +145,7 @@ class OrTextFunc {
         $ortext_loadsite = get_option('ortext_loadsite'); //Текущий загруженный проект
         $ortext_token_key = get_option('ortext_token_key'); // Токен яндекса
         $url = '/api/v2/hosts/' . $ortext_loadsite . '/original-texts/';
-        $text = urlencode('<original-text><content>' . strip_tags($text2) . '</content></original-text>');
+        $text = urlencode('<original-text><content>' . $text2 . '</content></original-text>');
 
         $headersnew = array(
             'POST' => $url . ' HTTP/1.1',
@@ -156,9 +156,10 @@ class OrTextFunc {
 
         $curlinfo = wp_remote_post('https://' . self::YANDEX_WEBMASTER_HOST . $url, array('headers' => $headersnew, 'body' => $text));
         $response = $curlinfo['response'];
-
         switch ($response['code']) {
             case 201: return 201;
+                
+            case 400: return 400;
 
             case 403: return 403;
                 

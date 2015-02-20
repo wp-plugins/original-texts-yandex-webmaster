@@ -158,7 +158,8 @@ class OrTextBase {
 //$postId = intval($_REQUEST['postId']);
         $postData = get_post($post_id);
         $title = $postData->post_title;
-        $text = $postData->post_content;
+        $textNostrip = strip_tags($postData->post_content);
+        $text=htmlspecialchars($textNostrip);
         $post_type = $postData->post_type;
 
         $ortextfun = new OrTextFunc;
