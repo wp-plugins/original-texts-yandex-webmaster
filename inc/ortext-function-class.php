@@ -204,4 +204,5 @@ class OrTextFunc {
         update_option('ortext_jornal', $ortext_jornal_new);
     }
 
+
 }

@@ -3,12 +3,12 @@
   Plugin Name: Original texts Yandex WebMaster
   Plugin URI: http://www.zixn.ru/plagin-originalnye-teksty-yandex.html
   Description: Позволяет добавлять ваши записи в "Оригинальные тексты Yandex Webmaster"
-  Version: 1.3
-  Author: Djon
+  Version: 1.4
+  Author: Djo
   Author URI: http://zixn.ru
  */
 
-/*  Copyright 2015  Djon  (email: izm@zixn.ru)
+/*  Copyright 2015  Djo  (email: izm@zixn.ru)
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -29,5 +29,8 @@ require_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/inc/o
 require_once (WP_PLUGIN_DIR . '/' . dirname(plugin_basename(__FILE__)) . '/inc/ortext-function-class.php'); //Основной функционал плагина
 
 
-$ortextbase=new OrTextBase();
+$ortextbase = new OrTextBase();
 register_deactivation_hook(__FILE__, array($ortextbase, 'deactivationPlugin'));
+
+//register_activation_hook(__FILE__, array($ortextbase, 'addCronWP'));
+//add_filter('cron_schedules', array($ortextbase, 'cronTimeList', 10, 2)); //Задания крон

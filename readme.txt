@@ -3,7 +3,7 @@ Contributors: northmule
 Donate link: http://www.zixn.ru/
 Tags: Post, posts, webmaster, widget, yandex
 Requires at least: 3.3
-Tested up to: 4.1
+Tested up to: 4.2
 Stable tag: 4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -43,6 +43,10 @@ While doing the installation procedure, it is recommended to go through all the 
 6. Вид при публикации записи. Look at the publication post
 
 == Changelog ==
+= 1.4 =
+* Изменён внешний вид админ страницы плагина
+* Новые опции по очистки текста перед отправкой в Яндекс «PRO Настройки»
+* Добавлена возможность напоминаний на email об окончании срока жизни токена Яндекс
 = 1.3 =
 * Изменён способ отправки данных в api Яндекс (1 функция) Изменён журнал плагина
 = 1.2 =
