@@ -45,7 +45,11 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                 <span class="description">Включить уведомления на Email</span>
             </td>
             <td>
-                <input id="toltipemail1" data-toggle="tooltip" title="Введите email для уведомлений" placeholder="Например: djo@mail.ru" type="email" name="ortextprol[email]" value="<?php echo $ortextprol['email']; ?>" />
+                <input id="toltipemail1" data-toggle="tooltip" title="Введите email для уведомлений" placeholder="Например: djo@mail.ru" type="email" name="ortextprol[email]" value="<?php
+                if (!empty($ortextprol['email'])) {
+                    echo $ortextprol['email'];
+                }
+                ?>" />
                 <span class="description">На этот Email будет приходить уведомление о завершение срока работы токена, вы можете не указывать email. Можно указать несколько email через ", "</span>
             </td>
         </tr>
@@ -64,11 +68,19 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                     <span class="description">Включить ваше правило №1 очистки текста?</span>
                 </td>
                 <td>
-                    <input placeholder="Например: Рубить шорткоды" type="text" name="ortextprol[namereg1]" value="<?php echo $ortextprol['namereg1']; ?>" />
+                    <input placeholder="Например: Рубить шорткоды" type="text" name="ortextprol[namereg1]" value="<?php
+                    if (!empty($ortextprol['namereg1'])) {
+                        echo $ortextprol['namereg1'];
+                    }
+                    ?>" />
                     <span class="description">Имя вашего правила, для удобства испоьзования в записях</span>
                 </td>
                 <td>
-                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg1]" value="<?php echo $ortextprol['reg1']; ?>" />
+                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg1]" value="<?php
+                    if (!empty($ortextprol['reg1'])) {
+                        echo $ortextprol['reg1'];
+                    }
+                    ?>" />
                     <span class="description">Здесь вы можете указать регулярное выражение, которое будет использовано при очистке текста перед публикацией в Яндекс.</span>
                 </td>
             </tr>
@@ -84,11 +96,19 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                     <span class="description">Включить ваше правило №2 очистки текста?</span>
                 </td>
                 <td>
-                    <input placeholder="Например: Рубить картинки" type="text" name="ortextprol[namereg2]" value="<?php echo $ortextprol['namereg2']; ?>" />
+                    <input placeholder="Например: Рубить картинки" type="text" name="ortextprol[namereg2]" value="<?php
+                    if (!empty($ortextprol['namereg2'])) {
+                        echo $ortextprol['namereg2'];
+                    }
+                    ?>" />
                     <span class="description">Имя вашего правила, для удобства испоьзования в записях</span>
                 </td>
                 <td>
-                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg2]" value="<?php echo $ortextprol['reg2']; ?>" />
+                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg2]" value="<?php
+                    if (!empty($ortextprol['reg2'])) {
+                        echo $ortextprol['reg2'];
+                    }
+                    ?>" />
                     <span class="description">Здесь вы можете указать регулярное выражение, которое будет использовано при очистке текста перед публикацией в Яндекс.</span>
                 </td>
             </tr>
@@ -104,11 +124,19 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                     <span class="description">Включить ваше правило №3 очистки текста?</span>
                 </td>
                 <td>
-                    <input placeholder="Например: Рубить дрова" type="text" name="ortextprol[namereg3]" value="<?php echo $ortextprol['namereg3']; ?>" />
+                    <input placeholder="Например: Рубить дрова" type="text" name="ortextprol[namereg3]" value="<?php
+                    if (!empty($ortextprol['namereg3'])) {
+                        echo $ortextprol['namereg3'];
+                    }
+                    ?>" />
                     <span class="description">Имя вашего правила, для удобства испоьзования в записях</span>
                 </td>
                 <td>
-                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg3]" value="<?php echo $ortextprol['reg3']; ?>" />
+                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg3]" value="<?php
+                    if (!empty($ortextprol['reg3'])) {
+                        echo $ortextprol['reg3'];
+                    }
+                    ?>" />
                     <span class="description">Здесь вы можете указать регулярное выражение, которое будет использовано при очистке текста перед публикацией в Яндекс.</span>
                 </td>
             </tr>
@@ -124,11 +152,17 @@ $dir_plugin_abdolut = plugin_dir_path(__FILE__);
                     <span class="description">Включить ваше правило №4 очистки текста?</span>
                 </td>
                 <td>
-                    <input placeholder="Например: Рубить капусту" type="text" name="ortextprol[namereg4]" value="<?php echo $ortextprol['namereg4']; ?>" />
+                    <input placeholder="Например: Рубить капусту" type="text" name="ortextprol[namereg4]" value="<?php
+                    if (!empty($ortextprol['namereg4'])) {
+                        echo $ortextprol['namereg4'];
+                    }
+                    ?>" />
                     <span class="description">Имя вашего правила, для удобства испоьзования в записях</span>
                 </td>
                 <td>
-                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg4]" value="<?php echo $ortextprol['reg4']; ?>" />
+                    <input size="40" placeholder="Например: /\[[^\]]+\]/u" type="text" name="ortextprol[reg4]" value="<?php if (!empty($ortextprol['reg4'])) {
+                        echo $ortextprol['reg4'];
+                    } ?>" />
                     <span class="description">Здесь вы можете указать регулярное выражение, которое будет использовано при очистке текста перед публикацией в Яндекс.</span>
                 </td>
             </tr>
